@@ -1,0 +1,40 @@
+---
+title: "Untitled"
+output: 
+  html_document: 
+    keep_md: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+```{r}
+install.packages("tidyverse")
+install.packages("skimr")
+library(tidyverse)
+library(skimr)
+```
+
+
+```{r}
+bee1 <- 
+  readr::read_csv("Bee Colony Survey Data by State.csv")
+bee1
+```
+```{r}
+install.packages("readxl")
+library(readxl)
+```
+
+```{r}
+bee2 <- 
+  readxl::read_excel("Bee Colony Loss.xlsx")
+bee2
+```
+
+```{r}
+totalBeeData <- merge(bee1, bee2, by="State")
+totalBeeData
+  
+```
+
