@@ -4,6 +4,13 @@ output:
   html_document: 
     keep_md: yes
 ---
+##Questions:
+1. There’s a dataset in the folder called, “Bee colony Census Data by County”  and we wanted help in merging the data sets. 
+
+
+2. Also in the “Bee colony Census Data by County” data set, there’s a column named “value” and we’ve looked in the glossary but we couldn’t find any info on it. We were wondering if you knew what we could use the “value” column for or if it’s even worth using anything in the ”Bee colony Census Data by County” data set. 
+
+3. I'm having trouble geting all the columns in the object "bee2" Renamed. It seems like it won't recognize the variables original names even before I've renamed them. 
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -69,6 +76,11 @@ bee2 %>%
 names(bee2)
 
 ```
+```{r}
+ggplot(data=bee2, mapping=aes(x="Year" , y=" Total Annual Loss")) +
+  geom_jitter()+
+  geom_smooth(method=lm, se=FALSE)
+```
 
 ```{r}
 ggplot(data=bee2, mapping=aes(x=" State", y=" Beekeepers"))+
@@ -84,13 +96,6 @@ names(bee1)
 ```
 
 
-##Questions:
-1. There’s a dataset in the folder called, “Bee colony Census Data by County”  and we wanted help in merging the data sets. 
-
-
-2. Also in the “Bee colony Census Data by County” data set, there’s a column named “value” and we’ve looked in the glossary but we couldn’t find any info on it. We were wondering if you knew what we could use the “value” column for or if it’s even worth using anything in the ”Bee colony Census Data by County” data set. 
-
-3. I'm having trouble geting all the columns in the object "bee2" Renamed. It seems like it won't recognize the variables original names even before I've renamed them. 
 
 
 
