@@ -1,0 +1,103 @@
+---
+title: "Bee Data"
+output: 
+  html_document: 
+    keep_md: yes
+---
+##Questions:
+1. There’s a dataset in the folder called, “Bee colony Census Data by County”  and we wanted help in merging the data sets. 
+
+
+2. Also in the “Bee colony Census Data by County” data set, there’s a column named “value” and we’ve looked in the glossary but we couldn’t find any info on it. We were wondering if you knew what we could use the “value” column for or if it’s even worth using anything in the ”Bee colony Census Data by County” data set. 
+
+3. I'm having trouble geting all the columns in the object "bee2" Renamed. It seems like it won't recognize the variables original names even before I've renamed them. 
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+```{r}
+install.packages("tidyverse")
+install.packages("skimr")
+install.packages("RColorBrewer")
+library("RColorBrewer")
+library(tidyverse)
+library(skimr)
+```
+
+
+```{r}
+#if you guys are having trouble with viewing it, move the data to the same folder. ie move the rmd file to the finley data folder or move the excel sheet to the "animal-master" folder
+bee1 <- 
+  readr::read_csv("Bee Colony Survey Data by State.csv")
+bee1
+```
+```{r}
+install.packages("readxl")
+library(readxl)
+```
+
+```{r}
+bee2 <- 
+  readxl::read_excel("Bee Colony Loss.xlsx")
+bee2
+names(bee2)
+```
+```{r}
+
+bee2 <- 
+  bee2 %>% 
+  dplyr::rename(
+          year        = "Year",
+          season      = "Season",
+          state       = " State",
+          tot_an_loss = " Total Annual Loss"  
+          )
+
+names(bee2)
+```
+
+```{r}
+#UNFINISHED NEED HELP, MERGING TWO DATA SETS
+#totalBeeData <- merge(bee1, bee2, by="State")
+#totalBeeData
+  
+```
+
+
+```{r}
+#Be keeper vs Bee loss
+bee2 %>% 
+  filter(Year=="2016/17") %>% 
+  ggplot(aes(x=" State", y=" Beekeepers"))+
+  geom_col()
+  coord_flip()
+```
+```{r}
+names(bee2)
+
+```
+```{r}
+ggplot(data=bee2, mapping=aes(x="Year" , y=" Total Annual Loss")) +
+  geom_jitter()+
+  geom_smooth(method=lm, se=FALSE)
+```
+
+```{r}
+ggplot(data=bee2, mapping=aes(x=" State", y=" Beekeepers"))+
+  geom_boxplot()
+```
+```{r}
+names(bee2)
+
+```
+```{r}
+names(bee1)
+
+```
+
+
+
+
+
+
+
