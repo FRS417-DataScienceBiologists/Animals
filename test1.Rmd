@@ -16,19 +16,20 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 ```{r}
-install.packages("tidyverse")
-install.packages("skimr")
-install.packages("RColorBrewer")
+#install.packages("tidyverse")
+#install.packages("skimr")
+#install.packages("RColorBrewer")
 library("RColorBrewer")
 library(tidyverse)
 library(skimr)
 ```
 
 
+
 ```{r}
 #if you guys are having trouble with viewing it, move the data to the same folder. ie move the rmd file to the finley data folder or move the excel sheet to the "animal-master" folder
 bee1 <- 
-  readr::read_csv("Bee Colony Survey Data by State.csv")
+  readr::read_csv("finley-bee-colony-statistical-data-from-1987-2017/Bee Colony Survey Data by State.csv")
 bee1
 ```
 ```{r}
@@ -38,7 +39,7 @@ library(readxl)
 
 ```{r}
 bee2 <- 
-  readxl::read_excel("Bee Colony Loss.xlsx")
+  readxl::read_excel("finley-bee-colony-statistical-data-from-1987-2017/Bee Colony Loss.xlsx")
 bee2
 names(bee2)
 ```
@@ -65,11 +66,17 @@ names(bee2)
 
 
 ```{r}
-#Be keeper vs Bee loss
+#Bee keeper vs Bee loss
 bee2 %>% 
   filter(Year=="2016/17") %>% 
+  filter(" State" == " California") %>% 
   ggplot(aes(x=" State", y=" Beekeepers"))+
-  geom_col()
+  geom_col(alpha=0.9)+
+  #scale_fill_brewer(palette = "Dark2")+
+  labs(title = "Number of Beekeepers per State in 2016/2017",
+       x = "State",
+       y = "Number of Beekeepers")+ 
+  theme(plot.title = element_text(size = rel(1.25)))+
   coord_flip()
 ```
 ```{r}
