@@ -16,9 +16,9 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 ```{r}
-install.packages("tidyverse")
-install.packages("skimr")
-install.packages("RColorBrewer")
+#install.packages("tidyverse")
+#install.packages("skimr")
+#install.packages("RColorBrewer")
 library("RColorBrewer")
 library(tidyverse)
 library(skimr)
@@ -51,26 +51,26 @@ bee <-
 names(bee)
 ```
 
-```{r}
-#UNFINISHED NEED HELP, MERGING TWO DATA SETS
-#totalBeeData <- merge(bee1, bee2, by="State")
-#totalBeeData
-  
-```
-
 
 ```{r}
 #Be keeper vs Bee loss
-bee2 %>% 
-  filter(Year=="2016/17") %>% 
-  ggplot(aes(x=" State", y=" Beekeepers"))+
-  geom_col()
-  coord_flip()
+bee %>% 
+  filter(year=="2016/17") %>% 
+  ggplot(aes(x=state, y= beekeepers, fill = state))+
+  geom_col()+
+  #coord_flip()+
+  labs(title = "Number of Beekeepers per State in 2016-2017",
+       x = "State",
+       y = "Number of Beekeepers Hired by State")+
+   theme( axis.text.x = element_text(angle = 60, hjust=1),
+          axis.text=element_text(size=8),
+          axis.title=element_text(size=10))+
+  
+  #scale_fill_brewer(palette = "Dark2")
+  
+  
 ```
-```{r}
-names(bee2)
 
-```
 ```{r}
 ggplot(data=bee2, mapping=aes(x="Year" , y=" Total Annual Loss")) +
   geom_jitter()+
