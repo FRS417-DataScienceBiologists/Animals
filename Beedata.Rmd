@@ -9,51 +9,59 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 ```{r}
-#install.packages("tidyverse")
-#install.packages("skimr")
+install.packages("tidyverse")
+install.packages("skimr")
 library(tidyverse)
 library(skimr)
 ```
 ```{r}
 getwd()
 ```
+
+
 ```{r}
-getwd()
+bee <- 
+  readr::read_csv("/Users/clmuser/Desktop/Animals-master/Animals-master 5/bee2.csv")
+bee
+```
+```{r}
+bee <- 
+  bee %>% 
+  dplyr::rename(
+          year        = "Year",
+          season      = "Season",
+          state       = "State",
+          totAnnualLoss = "Total Annual Loss",
+          beekeepers = "Beekeepers",
+          beekeepersExclusive = "Beekeepers Exclusive to State",
+          colonies = "Colonies",
+          coloniesExclusive =  "Colonies Exclusive to State" 
+          )
+
+names(bee)
+```
+
+```{r}
+summary(bee2)
 ```
 
 
 ```{r}
-bee1 <- 
-   readr::read_csv("C:/Users/Isha/Desktop/Animals-master/finley-bee-colony-statistical-data-from-1987-2017/Bee Colony Survey Data by State.csv")
-
-bee1
-```
-```{r}
-#install.packages("readxl")
-library(readxl)
+options(scipen=999)
 ```
 
 ```{r}
-bee2 <- 
-  readxl::read_excel("C:/Users/Isha/Desktop/Animals-master/finley-bee-colony-statistical-data-from-1987-2017/Bee Colony Loss.xlsx")
-bee2
+bee %>%
+  filter(year=="2016/17") %>%
+ggplot( aes(x=state,y=colonies)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Colonies Vs state",
+       x = "states",
+       y = "colonies")+
+  theme(plot.title = element_text(face="bold", hjust = 0.5),
+        axis.text.x = element_text(angle = 60, hjust = 1),
+        axis.text.y = element_text(angle = 90, hjust = 1))+
+  scale_fill_brewer(palette = "Dark2")
 ```
-
-```{r}
-## totalBeeData <- merge(bee1, bee2, by="State")
-##totalBeeData
-  
-```
-
-## Bee loss vs state over the years  (jade) 
-#Colonies per state  (bar plot) - isha 
-#Beekeeper vs bee loss  (scatter plot) 
-#Bee loss over the years (valerie 
-#Bee loss over the years for each state
-
-
-#Questions:
-#There's a dataset in the folder called, "Bee colony Census Data by County"  and we wanted help in merging the data sets. 
-#Also in the "Bee colony Census Data by County" data set, there's a column named "value" and we've looked in the glossary but we couldn't find any info on it. We were wondering if you knew what we could use the "value" column for or if it's even worth using anything in the "Bee colony Census Data by County" data set. 
 
 
