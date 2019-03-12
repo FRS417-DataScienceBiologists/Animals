@@ -13,6 +13,8 @@ For more details on authoring R presentations please visit <https://support.rstu
 - Bullet 2
 - Bullet 3
 
+Source: <https://support.rstudio.com/hc/en-us/articles/200486468>.
+
 Slide With Code
 ========================================================
 
@@ -35,3 +37,45 @@ Slide With Plot
 ========================================================
 
 ![plot of chunk unnamed-chunk-2](FinalPresentation_Draft-figure/unnamed-chunk-2-1.png)
+
+========================================================
+
+<font size=80> 
+<center>
+
+BUT WHY ARE BEE POPULATIONS DESCREASING?
+</center>
+</font> 
+
+
+
+========================================================
+
+<center>
+<font size=80> 
+
+Let's investigate one posible reason:
+       Beekeepers
+
+</font> 
+</center>
+
+Here's How Many Beekeepers Were Employed by Each State in 2016-2017
+========================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+```
+Error in bee %>% filter(year == "2016/17") %>% ggplot(aes(x = state, y = beekeepers,  : 
+  could not find function "%>%"
+```
