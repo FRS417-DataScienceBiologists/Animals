@@ -23,7 +23,7 @@ library(tidyverse)
 ```
 
 ```
-## ── Attaching packages ──────────────────────────── tidyverse 1.2.1 ──
+## ── Attaching packages ───────────────────────────────────────────────────────────── tidyverse 1.2.1 ──
 ```
 
 ```
@@ -54,7 +54,7 @@ library(tidyverse)
 ```
 
 ```
-## ── Conflicts ─────────────────────────────── tidyverse_conflicts() ──
+## ── Conflicts ──────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ## ✖ dplyr::filter() masks stats::filter()
 ## ✖ dplyr::lag()    masks stats::lag()
 ```
@@ -392,20 +392,23 @@ bee %>%
 ## # … with 41 more rows, and 2 more variables: coloniesExclusive <dbl>,
 ## #   coloniesPerKeeper <dbl>
 ```
+#incorporating ratio into graphs
 
 ```r
 bee %>% 
   mutate(coloniesPerKeeper = colonies/beekeepers) %>% 
   filter(year=="2016/17") %>% 
-  ggplot(aes(x=totAnnualLoss, y= coloniesPerKeeper, color=state))+
-  geom_jitter()+
+  ggplot(aes(x=coloniesPerKeeper, y= totAnnualLoss, color=state))+
+  geom_jitter(shape=18, alpha=.8)+
   geom_smooth(method=lm, se=FALSE)+
-  labs(title = "Ratio of Colonies:Beekeepers vs Total Annual Loss in 2016-2017",
+  labs(title = " Ratio of Colonies to Beekeepers vs Total Annual Loss in 2016-2017",
        x = "Total Annual Loss",
-       y = "Ratio of Colonies to Beekeepers")+
+       y = "Colonies  /  Beekeepers")+
    theme( axis.text.x = element_text(angle = 60, hjust=1),
+          axis.text.y = element_text(angle = 60, hjust=1),
           axis.text=element_text(size=8),
           axis.title=element_text(size=10),
+          legend.position="none",
           plot.title = element_text(lineheight=.8, face="bold"))
 ```
 
@@ -434,3 +437,127 @@ bee %>%
 
 
 #Main Takeway: Total Annual Bee Loss isn't dependent on the number of beekeepers. For example Mississippi and California have some of the higest ratios of colonies:beekeepers yet still have lower total annual loss values compared to some states like Oklahoma, which has the highest total annual loss for the most recent year and has one of the lowest colony:keeper ratios out there. 
+
+#relationship between number of beekepers hired and bee loss
+
+```r
+bee %>% 
+  filter(year=="2016/17") %>% 
+  ggplot(aes(x=beekeepers, y=totAnnualLoss, color = state))+
+  geom_jitter()+
+  geom_smooth(method=lm, se=FALSE)+
+  labs(title = "Total Annual Loss vs Number of Beekeepers in 2016-2017",
+       x = "Number of Beekeepers Hired by State",
+       y = "Total Annual Loss of Bee Colonies")+
+   theme( axis.text.x = element_text(angle = 60, hjust=0.8),
+          axis.text=element_text(size=8),
+          axis.title=element_text(size=10),
+          legend.position="none",
+          plot.title = element_text(lineheight=0.8, face="bold"))+
+  scale_fill_brewer(palette = "Dark2")
+```
+
+![](test1_files/figure-html/unnamed-chunk-16-1.png)<!-- -->
+
+```r
+bee %>% 
+  #select(country, commname, sciname, year, catch) %>% 
+  arrange(desc(totAnnualLoss))
+```
+
+```
+## # A tibble: 365 x 8
+##    year  season state totAnnualLoss beekeepers beekeepersExclu… colonies
+##    <chr> <chr>  <chr>         <dbl>      <dbl>            <dbl>    <dbl>
+##  1 2010… Annual Maine         0.869         43            0.93      5668
+##  2 2013… Annual Dist…         0.857          6            0.667      377
+##  3 2011… Annual Dist…         0.853          5            1         1877
+##  4 2010… Annual Geor…         0.847         61            0.967     5923
+##  5 2016… Annual Okla…         0.839         29            0.965     9513
+##  6 2010… Annual Mich…         0.835         99            0.97     10320
+##  7 2013… Annual Conn…         0.816         65            0.908     1531
+##  8 2010… Annual Iowa          0.807         14            0.857     1037
+##  9 2010… Annual West…         0.786         25            0.92       509
+## 10 2016… Annual Dela…         0.74          38            0.868      462
+## # … with 355 more rows, and 1 more variable: coloniesExclusive <dbl>
+```
+
+```r
+bee
+```
+
+```
+## # A tibble: 365 x 8
+##    year  season state totAnnualLoss beekeepers beekeepersExclu… colonies
+##    <chr> <chr>  <chr>         <dbl>      <dbl>            <dbl>    <dbl>
+##  1 2016… Annual Mass…         0.159         87            0.943    27186
+##  2 2016… Annual Mont…         0.171         21            0.524    35905
+##  3 2016… Annual Neva…         0.23          13            0.923     2512
+##  4 2016… Annual Maine         0.233         65            0.938    41102
+##  5 2016… Annual Wyom…         0.234         18            0.778     6521
+##  6 2016… Annual Hawa…         0.262         10            1           84
+##  7 2016… Annual Miss…         0.263          9            0.222    17802
+##  8 2016… Annual West…         0.266         52            0.942      993
+##  9 2016… Annual Idaho         0.273         30            0.833    76794
+## 10 2016… Annual Flor…         0.292         62            0.823    95872
+## # … with 355 more rows, and 1 more variable: coloniesExclusive <dbl>
+```
+
+
+```r
+bee %>% 
+  mutate(coloniesPerKeeper = colonies/beekeepers) %>% 
+  filter(state == "Oklahoma" | state=="District of Columbia") %>% 
+  ggplot(aes(x=totAnnualLoss, y= coloniesPerKeeper, color = year))+
+  geom_jitter()+
+  geom_smooth(method=lm, se=FALSE)+
+  labs(title = "Total Anuual Loss vs Ratio of Colonies to Beekeepers",
+       x = "Total Annual Loss",
+       y = "Colonies : Beekeepers")+ 
+   theme( axis.text.x = element_text(angle = 60, hjust=1),
+          axis.text=element_text(size=8),
+          axis.title=element_text(size=13),
+          plot.title = element_text(lineheight=.8, face="bold"))+
+  facet_grid(. ~ state)+
+  scale_fill_brewer(palette = "Dark1")
+```
+
+```
+## Warning in pal_name(palette, type): Unknown palette Dark1
+```
+
+```
+## Warning: Removed 2 rows containing non-finite values (stat_smooth).
+```
+
+```
+## Warning: Removed 2 rows containing missing values (geom_point).
+```
+
+![](test1_files/figure-html/unnamed-chunk-18-1.png)<!-- -->
+
+```r
+bee %>% 
+  mutate(coloniesPerKeeper = colonies/beekeepers) %>% 
+  filter(state == "California" | state== "Massachusetts") %>% 
+  ggplot(aes(x=totAnnualLoss, y= coloniesPerKeeper, color = year))+
+  geom_jitter()+
+  geom_smooth(method=lm, se=FALSE)+
+  labs(title = "Total Anuual Loss vs Ratio of Colonies to Beekeepers",
+       x = "Total Annual Loss",
+       y = "Colonies : Beekeepers")+ 
+   theme( axis.text.x = element_text(angle = 60, hjust=1),
+          axis.text.y = element_text(angle = 60, hjust=1),
+          axis.text=element_text(size=8),
+          axis.title=element_text(size=13),
+          plot.title = element_text(lineheight=.8, face="bold"))+
+  facet_grid(. ~ state)+
+  scale_fill_brewer(palette = "Dark1")
+```
+
+```
+## Warning in pal_name(palette, type): Unknown palette Dark1
+```
+
+![](test1_files/figure-html/unnamed-chunk-19-1.png)<!-- -->
+
