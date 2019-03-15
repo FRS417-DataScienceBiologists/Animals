@@ -19,10 +19,11 @@ library("RColorBrewer")
 ```
 
 ## Load the data
-We found our data at the QQQ. Citations.
+We found our data at the https://data.world/datasets/bees
 ```{r echo=TRUE, message=FALSE, warning=FALSE, include=TRUE}
 bee <- 
-  readr::read_csv("bee2.csv")
+  readr::read_csv("C:/Users/Isha/Desktop/Animals-master/Animals-master/Animals-master 5/bee2.csv")
+bee
 ```
 
 ##Rename the Data
@@ -43,21 +44,49 @@ bee <-
 names(bee)
 ```
 
+```{r}
+options(scipen=999)
+```
 
 ## How many bee colonies are there in each state?
+
+```{r}
+bee %>%
+  filter(year=="2010/11") %>%
+ggplot( aes(x=state,y=colonies, fill= state)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Colonies Vs State (2010/2011)",
+       x = "states",
+       y = "colonies")+
+   theme( axis.text.x = element_text(angle = 60, hjust=1),
+          axis.text=element_text(size=8),
+          axis.title=element_text(size=10),
+          legend.position="none",
+          plot.title = element_text(lineheight=.8, face="bold"))
+  scale_fill_brewer(palette = "Dark2")
+```
+
+## Colonies in 2016/2017
 ```{r}
 bee %>%
   filter(year=="2016/17") %>%
-  ggplot( aes(x=state,y=colonies)) +
+  ggplot( aes(x=state,y=colonies, fill = state)) +
   geom_bar(stat = "identity") +
-  labs(title = "Colonies Vs state",
+  labs(title = "Colonies Vs State (2016/2017)",
        x = "states",
        y = "colonies")+
-  theme(plot.title = element_text(face="bold", hjust = 0.5),
-        axis.text.x = element_text(angle = 60, hjust = 1),
-        axis.text.y = element_text(angle = 90, hjust = 1))+
+   theme( axis.text.x = element_text(angle = 60, hjust=1),
+          axis.text=element_text(size=8),
+          axis.title=element_text(size=10),
+          legend.position="none",
+          plot.title = element_text(lineheight=.8, face="bold"))
   scale_fill_brewer(palette = "Dark2")
-``` 
+```
+
+
+
+
+
 
 ##BUT WHY ARE BEE POPULATIONS DESCREASING?
 ##Let's investigate one posible reason: Beekeepers
@@ -179,9 +208,9 @@ bee %>%
 
 The number of beekeepers being hired is not related to rising rates colony collapse. But here are some other factors that are likely to be:
 
-- Bullet 1
-- Bullet 2
-- Bullet 3
+- Pesticides, fungicides, and insecticides
+- Bees' diets are not exactly healthy, but often consist of junk food in the form of sugar or corn syrup
+- erratic weather patterns brought on by a changing climate
 
 Source: <insert link to source here>.
 
