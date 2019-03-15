@@ -132,7 +132,8 @@ We found our data at the https://data.world/datasets/bees
 ##     super:  <ggproto object: Class ScaleDiscrete, Scale, gg>
 ```
 
-
+## Fun Facts
+- California has a discrepancy as they started a new initive to revive the Honey bee population by having them pollinate almonds. Each almond acre requires two honey hives
 
 ##Is it true bee colonies are losing?
 
@@ -224,7 +225,7 @@ We found our data at the https://data.world/datasets/bees
 ##On the other hand...
 ![](bees_pres_example_files/figure-html/unnamed-chunk-17-1.png)<!-- -->
 
--California and Massachusetts typically have a low total annual loss. 
+-California and North Dakota typically have a low total annual loss. 
 
 -We can see that once again, there is no linear regression line
 

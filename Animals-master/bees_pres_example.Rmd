@@ -86,7 +86,8 @@ bee %>%
   scale_fill_brewer(palette = "Dark2")
 ```
 
-
+## Fun Facts
+- California has a discrepancy as they started a new initive to revive the Honey bee population by having them pollinate almonds. Each almond acre requires two honey hives
 
 ##Is it true bee colonies are losing?
 ```{r}
@@ -244,7 +245,7 @@ bee %>%
 ```{r}
 bee %>% 
   mutate(coloniesPerKeeper = colonies/beekeepers) %>% 
-  filter(state == "California" | state== "Massachusetts") %>% 
+  filter(state == "California" | state== "North Dakota") %>% 
   ggplot(aes(x=totAnnualLoss, y= coloniesPerKeeper, color = year))+
   geom_jitter()+
   geom_smooth(method=lm, se=FALSE)+
@@ -260,7 +261,7 @@ bee %>%
   scale_fill_brewer(palette = "BuGn")
 ```
 
--California and Massachusetts typically have a low total annual loss. 
+-California and North Dakota typically have a low total annual loss. 
 
 -We can see that once again, there is no linear regression line
 
