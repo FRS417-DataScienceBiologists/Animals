@@ -22,10 +22,9 @@ library(skimr)
 library("RColorBrewer")
 ```
 
-
 ## Load the data
 We found our data at the https://data.world/datasets/bees
-```{r echo=TRUE, message=FALSE, warning=FALSE, include=TRUE}
+```{r message=FALSE, warning=FALSE, include=FALSE}
 bee <- 
   readr::read_csv("/Users/clmuser/Desktop/Animals-master/Animals-master 5/bee2.csv")
 bee
@@ -54,8 +53,7 @@ options(scipen=999)
 ```
 
 ## How many bee colonies are there in each state?
-
-```{r}
+```{r echo=FALSE, message=FALSE, warning=FALSE}
 bee %>%
   filter(year=="2010/11") %>%
 ggplot( aes(x=state,y=colonies, fill= state)) +
@@ -72,7 +70,7 @@ ggplot( aes(x=state,y=colonies, fill= state)) +
 ```
 
 ## Colonies in 2016/2017
-```{r}
+```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE}
 bee %>%
   filter(year=="2016/17") %>%
   ggplot( aes(x=state,y=colonies, fill = state)) +
@@ -95,6 +93,7 @@ bee %>%
 bee_2010<- 
   bee %>%
   filter(year =="2010/11") %>% 
+  select(year, state, totAnnualLoss) %>% 
   arrange(desc(totAnnualLoss))
 bee_2010
 ```
@@ -116,6 +115,7 @@ bee_2010 %>%
 bee_2016<-
   bee %>% 
   filter(year =="2016/17") %>% 
+  select(year, state, totAnnualLoss) %>% 
   arrange(desc(totAnnualLoss))
 bee_2016
 ```
