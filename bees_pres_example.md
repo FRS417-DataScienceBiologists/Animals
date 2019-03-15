@@ -15,38 +15,15 @@ We use the tidyverse and skimr for our project.
 ```r
 #install.packages("skimr")
 #install.packages("tidyverse")
+#install.packages("RColorBrewer")
 library(tidyverse)
 library(skimr)
 library("RColorBrewer")
 ```
 
-
 ## Load the data
 We found our data at the https://data.world/datasets/bees
 
-```r
-bee <- 
-  readr::read_csv("/Users/clmuser/Desktop/Animals-master/Animals-master 5/bee2.csv")
-bee
-```
-
-```
-## # A tibble: 365 x 8
-##    Year  Season State `Total Annual L… Beekeepers `Beekeepers Exc… Colonies
-##    <chr> <chr>  <chr>            <dbl>      <dbl>            <dbl>    <dbl>
-##  1 2016… Annual Mass…            0.159         87            0.943    27186
-##  2 2016… Annual Mont…            0.171         21            0.524    35905
-##  3 2016… Annual Neva…            0.23          13            0.923     2512
-##  4 2016… Annual Maine            0.233         65            0.938    41102
-##  5 2016… Annual Wyom…            0.234         18            0.778     6521
-##  6 2016… Annual Hawa…            0.262         10            1           84
-##  7 2016… Annual Miss…            0.263          9            0.222    17802
-##  8 2016… Annual West…            0.266         52            0.942      993
-##  9 2016… Annual Idaho            0.273         30            0.833    76794
-## 10 2016… Annual Flor…            0.292         62            0.823    95872
-## # … with 355 more rows, and 1 more variable: `Colonies Exclusive to
-## #   State` <dbl>
-```
 
 ##Rename the Data
 
@@ -59,7 +36,6 @@ bee
 
 
 ## How many bee colonies are there in each state?
-
 ![](bees_pres_example_files/figure-html/unnamed-chunk-5-1.png)<!-- -->
 
 ```
@@ -162,20 +138,20 @@ bee
 ##Is it true bee colonies are losing?
 
 ```
-## # A tibble: 53 x 8
-##    year  season state totAnnualLoss beekeepers beekeepersExclu… colonies
-##    <chr> <chr>  <chr>         <dbl>      <dbl>            <dbl>    <dbl>
-##  1 2010… Annual Maine         0.869         43            0.93      5668
-##  2 2010… Annual Geor…         0.847         61            0.967     5923
-##  3 2010… Annual Mich…         0.835         99            0.97     10320
-##  4 2010… Annual Iowa          0.807         14            0.857     1037
-##  5 2010… Annual West…         0.786         25            0.92       509
-##  6 2010… Annual Penn…         0.728        218            0.973     8640
-##  7 2010… Annual New …         0.681         79            0.848     8197
-##  8 2010… Annual Loui…         0.636         13            0.846     6153
-##  9 2010… Annual Mass…         0.607         81            0.938      539
-## 10 2010… Annual Illi…         0.583         57            0.947     1019
-## # … with 43 more rows, and 1 more variable: coloniesExclusive <dbl>
+## # A tibble: 53 x 3
+##    year    state         totAnnualLoss
+##    <chr>   <chr>                 <dbl>
+##  1 2010/11 Maine                 0.869
+##  2 2010/11 Georgia               0.847
+##  3 2010/11 Michigan              0.835
+##  4 2010/11 Iowa                  0.807
+##  5 2010/11 West Virginia         0.786
+##  6 2010/11 Pennsylvania          0.728
+##  7 2010/11 New York              0.681
+##  8 2010/11 Louisiana             0.636
+##  9 2010/11 Massachusetts         0.607
+## 10 2010/11 Illinois              0.583
+## # … with 43 more rows
 ```
 
 ## Top 5 states with the highest colony loss in 2010
@@ -184,20 +160,20 @@ bee
 ##In the most recent year 2016-2017
 
 ```
-## # A tibble: 51 x 8
-##    year  season state totAnnualLoss beekeepers beekeepersExclu… colonies
-##    <chr> <chr>  <chr>         <dbl>      <dbl>            <dbl>    <dbl>
-##  1 2016… Annual Okla…         0.839         29            0.965     9513
-##  2 2016… Annual Dela…         0.74          38            0.868      462
-##  3 2016… Annual Nebr…         0.721         15            0.933      355
-##  4 2016… Annual Iowa          0.686         71            0.986     1074
-##  5 2016… Annual Ariz…         0.65          10            0.8        528
-##  6 2016… Annual Conn…         0.618         34            1          427
-##  7 2016… Annual New …         0.604         49            0.939      757
-##  8 2016… Annual Illi…         0.59          94            0.979      906
-##  9 2016… Annual Mary…         0.55         127            0.905     5582
-## 10 2016… Annual Sout…         0.538         53            0.943     6246
-## # … with 41 more rows, and 1 more variable: coloniesExclusive <dbl>
+## # A tibble: 51 x 3
+##    year    state          totAnnualLoss
+##    <chr>   <chr>                  <dbl>
+##  1 2016/17 Oklahoma               0.839
+##  2 2016/17 Delaware               0.74 
+##  3 2016/17 Nebraska               0.721
+##  4 2016/17 Iowa                   0.686
+##  5 2016/17 Arizona                0.65 
+##  6 2016/17 Connecticut            0.618
+##  7 2016/17 New Hampshire          0.604
+##  8 2016/17 Illinois               0.59 
+##  9 2016/17 Maryland               0.55 
+## 10 2016/17 South Carolina         0.538
+## # … with 41 more rows
 ```
 
 ##Top 5 states with the highest colony loss in 2016
@@ -223,7 +199,7 @@ bee
 ![](bees_pres_example_files/figure-html/unnamed-chunk-12-1.png)<!-- -->
 
 
-##BUT WHY ARE BEE POPULATIONS DESCREASING?
+##BUT WHY ARE SO MANY BEE COLONIES COLLAPSING?
 ##Let's investigate one posible reason: Beekeepers
 
 ##Here's How Many Beekeepers Were Employed by Each State in 2016-2017
@@ -233,38 +209,22 @@ bee
 - Pennsylviania is ranked #16 in highest total annual bee loss
 - Virginia is ranked #19
 
-```
-## # A tibble: 51 x 8
-##    year  season state totAnnualLoss beekeepers beekeepersExclu… colonies
-##    <chr> <chr>  <chr>         <dbl>      <dbl>            <dbl>    <dbl>
-##  1 2016… Annual Okla…         0.839         29            0.965     9513
-##  2 2016… Annual Dela…         0.74          38            0.868      462
-##  3 2016… Annual Nebr…         0.721         15            0.933      355
-##  4 2016… Annual Iowa          0.686         71            0.986     1074
-##  5 2016… Annual Ariz…         0.65          10            0.8        528
-##  6 2016… Annual Conn…         0.618         34            1          427
-##  7 2016… Annual New …         0.604         49            0.939      757
-##  8 2016… Annual Illi…         0.59          94            0.979      906
-##  9 2016… Annual Mary…         0.55         127            0.905     5582
-## 10 2016… Annual Sout…         0.538         53            0.943     6246
-## # … with 41 more rows, and 1 more variable: coloniesExclusive <dbl>
-```
 
 ##There is no relationship between number of colonies and beekeepers
-![](bees_pres_example_files/figure-html/unnamed-chunk-15-1.png)<!-- -->
+![](bees_pres_example_files/figure-html/unnamed-chunk-14-1.png)<!-- -->
 
 ##What really matters is the ratio of beekeepers to colonies, Right?
 
 ##But...
-![](bees_pres_example_files/figure-html/unnamed-chunk-16-1.png)<!-- -->
+![](bees_pres_example_files/figure-html/unnamed-chunk-15-1.png)<!-- -->
 
 ##Furthermore...
-![](bees_pres_example_files/figure-html/unnamed-chunk-17-1.png)<!-- -->
+![](bees_pres_example_files/figure-html/unnamed-chunk-16-1.png)<!-- -->
 
 -Iowa and Oklahoma are two states with some of the highest total annual loss.
 
 ##On the other hand...
-![](bees_pres_example_files/figure-html/unnamed-chunk-18-1.png)<!-- -->
+![](bees_pres_example_files/figure-html/unnamed-chunk-17-1.png)<!-- -->
 
 -California and Massachusetts typically have a low total annual loss. 
 

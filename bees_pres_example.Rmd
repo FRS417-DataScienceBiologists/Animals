@@ -17,6 +17,7 @@ We use the tidyverse and skimr for our project.
 ```{r echo=TRUE, message=FALSE, warning=FALSE, include=TRUE}
 #install.packages("skimr")
 #install.packages("tidyverse")
+#install.packages("RColorBrewer")
 library(tidyverse)
 library(skimr)
 library("RColorBrewer")
@@ -154,7 +155,7 @@ average_loss %>%
 ```
 
 
-##BUT WHY ARE BEE POPULATIONS DESCREASING?
+##BUT WHY ARE SO MANY BEE COLONIES COLLAPSING?
 ##Let's investigate one posible reason: Beekeepers
 
 ##Here's How Many Beekeepers Were Employed by Each State in 2016-2017
@@ -176,11 +177,7 @@ bee %>%
 ##Pennsylvania and Virginia Are states with higher bee loss 
 - Pennsylviania is ranked #16 in highest total annual bee loss
 - Virginia is ranked #19
-```{r}
-bee %>% 
-  filter(year=="2016/17") %>% 
-  arrange(desc(totAnnualLoss))
-```
+
 
 ##There is no relationship between number of colonies and beekeepers
 ```{r}
