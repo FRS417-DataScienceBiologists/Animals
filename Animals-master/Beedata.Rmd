@@ -1,0 +1,67 @@
+---
+title: "Untitled"
+output: 
+  html_document: 
+    keep_md: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+```{r}
+install.packages("tidyverse")
+install.packages("skimr")
+library(tidyverse)
+library(skimr)
+```
+```{r}
+getwd()
+```
+
+
+```{r}
+bee <- 
+  readr::read_csv("/Users/clmuser/Desktop/Animals-master/Animals-master 5/bee2.csv")
+bee
+```
+```{r}
+bee <- 
+  bee %>% 
+  dplyr::rename(
+          year        = "Year",
+          season      = "Season",
+          state       = "State",
+          totAnnualLoss = "Total Annual Loss",
+          beekeepers = "Beekeepers",
+          beekeepersExclusive = "Beekeepers Exclusive to State",
+          colonies = "Colonies",
+          coloniesExclusive =  "Colonies Exclusive to State" 
+          )
+
+names(bee)
+```
+
+```{r}
+summary(bee2)
+```
+
+
+```{r}
+options(scipen=999)
+```
+
+```{r}
+bee %>%
+  filter(year=="2016/17") %>%
+ggplot( aes(x=state,y=colonies)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Colonies Vs state",
+       x = "states",
+       y = "colonies")+
+  theme(plot.title = element_text(face="bold", hjust = 0.5),
+        axis.text.x = element_text(angle = 60, hjust = 1),
+        axis.text.y = element_text(angle = 90, hjust = 1))+
+  scale_fill_brewer(palette = "Dark2")
+```
+
+
